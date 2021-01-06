@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './OrderOption.scss';
+import styles from './OrderOption.scss'; 
 import PropTypes from 'prop-types';
 import { formatPrice } from '../../../utils/formatPrice';
 import Icon from '../../common/Icon/Icon';
