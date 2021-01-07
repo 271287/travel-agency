@@ -35,7 +35,7 @@ const OrderOption = ({ name, type, id, setOrderOption, ...otherProps }) => {
   }
 };
 
-OrderOption.PropTypes = {
+OrderOption.propTypes = {
   title: PropTypes.string,
 };
 

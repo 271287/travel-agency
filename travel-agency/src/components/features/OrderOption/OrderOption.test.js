@@ -109,8 +109,7 @@ describe('Component OrderOption', () => {
           /* tests for icons */
           it('should render correct name', () => {
             const name = renderedSubcomponent.find('name');
-            expect(name.lenght).toBe(1);
-
+            expect(name.lenght).toBe(0);
           });
           it('should simulate click on last div with .icon', () => {
             renderedSubcomponent.last('div.icon').simulate('click');
@@ -121,12 +120,11 @@ describe('Component OrderOption', () => {
 
         case 'checkboxes': {
           /* tests for checkboxes */
-          it('should find input with value = testValue', () => {
-            const value = renderedSubcomponent.find(`input[value="${testValue}"]`);
-            expect(value.lenght).toBe(1);
-          });
-          it('should run setOrderOption function on change', () => {
-            renderedSubcomponent.find('value').simulate('change', { currentTarget: { value: testValue } });
+          it('should find input with value = testValue and run setOrderOption function on change', () => {
+            const expectedValue = renderedSubcomponent.find(`input[value="${testValue}"]`);
+            expect(expectedValue.lenght).toBe(1);
+      
+            expectedValue.simulate('change', {currentTarget: {checked: true}});
             expect(mockSetOrderOption).toBeCalledTimes(1);
             expect(mockSetOrderOption).toBeCalledWith({ [mockProps.currentValue]: testValue });
           });
