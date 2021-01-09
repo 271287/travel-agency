@@ -7,7 +7,6 @@ describe('Component OrderOption', () => {
   it('should render without crashing', () => {
     const component = shallow(<OrderOption type='Lorem' name='Lorem' />);
     expect(component).toBeTruthy();
-    console.log(component.debug());
   });
   it('should return empty object if called without required props', () => {
     const component = shallow(<OrderOption />);
