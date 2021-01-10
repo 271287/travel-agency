@@ -4,11 +4,12 @@ import HappyHourAd from './HappyHourAd';
 
 const select = {
   title: '.title',
-  promoDescription: '.promoDescription',
+  dscrp: '.promoDescription',
 };
 
 const mockProps = {
   title: 'Happy Hour!',
+  promoDescription: 'Promotion time',
 };
 
 
@@ -20,14 +21,13 @@ describe('Component HappyHourAd', () => {
   it('should render heading and description', () => {
     const component = shallow(<HappyHourAd />);
     expect(component.exists('select.title')).toEqual(true);
-    expect(component.exists('select.promoDescription')).toEqual(true);
+    expect(component.exists('select.dscrp')).toEqual(true);
   });
   it('should show title if given props name', () => {
     const properTitle = 'mockProps.title';
     const component = shallow(<HappyHourAd {...mockProps} />);
     expect(component.find('.title')).toEqual(properTitle);
   });
-
 });
 
 const trueDate = Date;
@@ -86,4 +86,14 @@ describe('Component HappyHourAd with mocked Date and delay', () => {
   checkDescriptionAfterTime('11:57:58', 2, '120');
   checkDescriptionAfterTime('11:59:58', 1, '1');
   checkDescriptionAfterTime('13:00:00', 60 * 60, 22 * 60 * 60 + '');
+});
+
+describe('Component HappyHourAd with mocked Date while promo', () => {
+  checkDescriptionAtTime('12:00:00', mockProps.promoDescription);
+  checkDescriptionAtTime('12:30:00', mockProps.promoDescription);
+  checkDescriptionAtTime('13:00:00', mockProps.promoDescription);
+});
+
+describe('Component HappyHourAd with mocked Date and delay to promo', () => {
+  checkDescriptionAfterTime('11:59:59', 1, mockProps.promoDescription);
 });
