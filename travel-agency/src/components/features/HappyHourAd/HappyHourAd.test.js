@@ -4,11 +4,11 @@ import HappyHourAd from './HappyHourAd';
 
 const select = {
   title: '.title',
-  dscrp: '.promoDescription',
+  descr: '.promoDescription',
 };
 
 const mockProps = {
-  title: 'Happy Hour!',
+  title: 'Happy Hour',
   promoDescription: 'Promotion time',
 };
 
@@ -21,17 +21,21 @@ describe('Component HappyHourAd', () => {
   it('should render without crashing', () => {
     const component = shallow(<HappyHourAd />);
     expect(component).toBeTruthy();
+    // console.log(component.debug());
   });
+
   it('should render heading and description', () => {
     const component = shallow(<HappyHourAd />);
-    expect(component.exists('select.title')).toEqual(true);
-    expect(component.exists('select.dscrp')).toEqual(true);
+    expect(component.exists(select.title)).toEqual(true);
+    expect(component.exists(select.descr)).toEqual(true);
   });
-  it('should show title if given props name', () => {
-    const properTitle = 'mockProps.title';
+
+  it('should render correct title', () => {
+    const correctTitle =  mockProps.title;
     const component = shallow(<HappyHourAd {...mockProps} />);
-    expect(component.find('.title')).toEqual(properTitle);
+    expect(component.find('.title').text()).toEqual(correctTitle);
   });
+
 });
 
 const trueDate = Date;
@@ -73,6 +77,7 @@ const checkDescriptionAfterTime = (time, delaySeconds, expectedDescription) => {
     global.Date = mockDate(`2019-05-14T${time}.135Z`);
 
     const component = shallow(<HappyHourAd {...mockProps} />);
+
     const newTime = new Date();
     newTime.setSeconds(newTime.getSeconds() + delaySeconds);
     global.Date = mockDate(newTime.getTime());
@@ -95,7 +100,7 @@ describe('Component HappyHourAd with mocked Date and delay', () => {
 describe('Component HappyHourAd with mocked Date while promo', () => {
   checkDescriptionAtTime('12:00:00', mockProps.promoDescription);
   checkDescriptionAtTime('12:30:00', mockProps.promoDescription);
-  checkDescriptionAtTime('13:00:00', mockProps.promoDescription);
+  checkDescriptionAtTime('12:59:59', mockProps.promoDescription);
 });
 
 describe('Component HappyHourAd with mocked Date and delay to promo', () => {

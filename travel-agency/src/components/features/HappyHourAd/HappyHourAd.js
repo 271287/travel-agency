@@ -4,35 +4,37 @@ import PropTypes from 'prop-types';
 import {formatTime} from '../../../utils/formatTime';
 
 class HappyHourAd extends React.Component {
-
   static propTypes = {
     title: PropTypes.string,
     promoDescription: PropTypes.string,
   }
 
-  getCountdownTime() {
+  getCountdownTime(){
     const currentTime = new Date();
     const nextNoon = new Date(Date.UTC(currentTime.getUTCFullYear(), currentTime.getUTCMonth(), currentTime.getUTCDate(), 12, 0, 0, 0));
 
-    if (currentTime.getUTCHours() >= 12) {
-      nextNoon.setUTCDate(currentTime.getUTCDate() + 1);
+    if(currentTime.getUTCHours() >= 12){
+      nextNoon.setUTCDate(currentTime.getUTCDate()+1);
     }
 
-    return Math.round((nextNoon.getTime() - currentTime.getTime()) / 1000);
+    return Math.round((nextNoon.getTime() - currentTime.getTime())/1000);
   }
-  constructor() {
-    super();
 
+  constructor(){
+    super();
     /* run this.forceUpdate() every second */
-    setInterval(() => { this.forceUpdate(); }, 1000);
+    setInterval(() => {this.forceUpdate();}, 1000);
   }
-  render() {
+
+  render(){
     const happyHour = this.getCountdownTime();
     const { title, promoDescription } = this.props;
-    return (
+    return(
       <div className={styles.component}>
         <h3 className={styles.title}>{title}</h3>
-        <div className={styles.promoDescription}>{happyHour > 82800 ? promoDescription: formatTime(happyHour)}</div>
+        {/* 23h * 60 * 60 = 82800s */}
+        {/* if(happyHour > 82800 ) {this.props.promoDescription} else {happyHour} */}
+        <div className={styles.promoDescription}>{happyHour > 82800 ? promoDescription : formatTime(happyHour)}</div>
       </div>
     );
   }
